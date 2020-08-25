@@ -1,0 +1,13 @@
+
+<div>
+  <h3>Add New Member</h3>
+  <form>
+    <input placeholder="First Name" [value]="firstName" (input)="firstName=$event.target.value"/>
+    <input placeholder="Last Name" [value]="lastName" (input)="lastName=$event.target.value"/>
+    <button (click)="addMember()">Add</button>
+  </form>
+</div>
+<div>
+  <h3>Member List</h3>
+  <div *ngFor="let member of memberList">{{member.firstName}} {{member.lastName}}<button (click)="deleteMember(member)">X</button></div>
+</div>

@@ -5,13 +5,7 @@ import com.irene.appointments.service.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Collections;
@@ -21,6 +15,7 @@ import java.util.List;
  * Created by Bibek on 3/13/2018.
  */
 @RestController
+@CrossOrigin
 public class MemberController {
 
     @Autowired
@@ -46,9 +41,9 @@ public class MemberController {
     public List<Member> getMemberByName(@RequestParam String name){
         return memberRepository.findMemberByFirstName(name);
     }
-    @RequestMapping(value = "/member/delete", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> deleteMember(@RequestBody Member member, UriComponentsBuilder builder){
-        memberRepository.delete(member);
+    @RequestMapping(value = "/member/delete/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteMember(@PathVariable("id") Long id, UriComponentsBuilder builder){
+        memberRepository.deleteById(id);
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
